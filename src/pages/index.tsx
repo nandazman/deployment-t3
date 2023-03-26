@@ -26,7 +26,7 @@ const CreatePostWizard = () => {
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
-      console.log(e.data);
+      console.log("zodError", e.data?.zodError);
       if (errorMessage && errorMessage[0]) {
         toast.error(errorMessage[0], {
           position: "bottom-center",
