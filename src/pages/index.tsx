@@ -31,10 +31,11 @@ const CreatePostWizard = () => {
         toast.error(errorMessage[0], {
           position: "bottom-center",
         });
+      } else {
+        toast.error("Failed to post! Please try again later", {
+          position: "bottom-center",
+        });
       }
-      toast.error("Failed to post! Please try again later", {
-        position: "bottom-center",
-      });
     }
   });
 
