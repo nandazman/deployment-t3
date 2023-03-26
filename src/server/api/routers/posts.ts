@@ -18,8 +18,8 @@ export const postRouter = createTRPCRouter({
     const posts = await ctx.prisma.post.findMany({
       take: 100,
       orderBy: {
-        createdAt: "desc"
-      }
+        createdAt: "desc",
+      },
     });
 
     const users = (
@@ -44,7 +44,7 @@ export const postRouter = createTRPCRouter({
   create: privateProcedure
     .input(
       z.object({
-        content: z.string().min(1).max(280),
+        content: z.string().emoji("Only emojis are allowed").min(1).max(280),
       })
     )
     .mutation(async ({ ctx, input }) => {

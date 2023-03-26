@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { SignInButton, useUser, SignOutButton } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 import { api, type RouterOutputs } from "~/utils/api";
 
@@ -22,6 +23,18 @@ const CreatePostWizard = () => {
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      console.log(e.data);
+      if (errorMessage && errorMessage[0]) {
+        toast.error(errorMessage[0], {
+          position: "bottom-center",
+        });
+      }
+      toast.error("Failed to post! Please try again later", {
+        position: "bottom-center",
+      });
     }
   });
 
@@ -109,13 +122,12 @@ const Home: NextPage = () => {
           <div className="border-b border-slate-400 p-4">
             {!isSignedIn && (
               <div className="flex justify-center">
-                <SignInButton />
+                <SignInButton mode="modal" afterSignInUrl="/" />
               </div>
             )}
             {isSignedIn && (
               <>
                 <CreatePostWizard />
-                <SignOutButton />
               </>
             )}
           </div>
