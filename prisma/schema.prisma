@@ -11,12 +11,16 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now()) 
-
-    content String @db.VarChar(255)
-    userId String
-
-    @@index([userId])
+model Review {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) 
+  restaurant String @db.VarChar(255)
+  rating Int
+  description String @db.Text
+  photos String? @db.Text
+  category Int 
+  location String @db.VarChar(255) 
+  price Int
+  website String @db.VarChar(255)
+  visited Int
 }
