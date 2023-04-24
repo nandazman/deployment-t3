@@ -28,6 +28,7 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const { req } = opts;
   const sesh = getAuth(req);
 
+  // use this if need authentication
   const userId = sesh.userId;
 
   return {
@@ -41,7 +42,7 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
  *
  * This is where the tRPC API is initialized, connecting the context and transformer.
  */
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { getAuth } from "@clerk/nextjs/server";
 import { ZodError } from "zod";
@@ -83,18 +84,18 @@ export const createTRPCRouter = t.router;
  */
 export const publicProcedure = t.procedure;
 
-const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.userId) {
-    throw new TRPCError({
-      code: "UNAUTHORIZED",
-    });
-  }
+// const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
+//   if (!ctx.userId) {
+//     throw new TRPCError({
+//       code: "UNAUTHORIZED",
+//     });
+//   }
 
-  return next({
-    ctx: {
-      userId: ctx.userId,
-    },
-  });
-});
+//   return next({
+//     ctx: {
+//       userId: ctx.userId,
+//     },
+//   });
+// });
 
-export const privateProcedure = t.procedure.use(enforceUserIsAuthed);
+// export const privateProcedure = t.procedure.use(enforceUserIsAuthed);
