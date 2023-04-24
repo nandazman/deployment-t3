@@ -35,7 +35,7 @@ export const Modal = ({ show, title, children, onHide }: ModalProps) => {
     <Portal>
       <div className="fixed inset-0 z-50 flex justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
         <div
-          className="absolute top-0 left-0 right-0 bottom-0 h-full w-full bg-neutral-800/70"
+          className="fixed top-0 left-0 right-0 bottom-0 h-full w-full bg-neutral-800/70"
           onClick={handleClose}
         ></div>
         <div className="absolute top-0 left-0 right-0 bottom-0 my-6 mx-auto h-max w-full md:w-4/6 lg:w-3/6 xl:w-2/5 px-4">
